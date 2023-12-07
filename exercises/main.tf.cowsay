@@ -71,14 +71,14 @@ resource "google_compute_instance" "hashicat" {
 
 }
 
-resource "null_resource" "configure-cat-app" {
+resource "terraform_data" "configure-cat-app" {
   depends_on = [
     google_compute_instance.hashicat,
   ]
 
-  triggers = {
-    build_number = timestamp()
-  }
+  triggers_replace = [
+    timestamp()
+  ]
 
   provisioner "file" {
     source      = "files/"
